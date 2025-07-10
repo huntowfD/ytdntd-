@@ -1,0 +1,221 @@
+/* Các style cơ bản cho toàn trang */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff; /* Màu nền dự phòng */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Ngăn cuộn trang */
+    position: relative;
+    /* Thêm background image */
+    background-image: url('background.jpg'); /* ĐẢM BẢO ĐƯỜNG DẪN NÀY ĐÚNG */
+    
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+    background-position: center; /* Căn giữa ảnh */
+}
+
+/* Style cho màn hình giới thiệu (intro.html sử dụng) */
+.intro-screen {
+    position: fixed; /* Giữ cố định trên màn hình */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Nền đen mờ */
+    color: #fff; /* Màu chữ trắng */
+    display: flex;
+    flex-direction: column; /* Sắp xếp các phần tử theo cột */
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    z-index: 9999; /* Đảm bảo nó nằm trên tất cả các yếu tố khác */
+    transition: opacity 1s ease-out; /* Hiệu ứng mờ dần khi biến mất */
+}
+
+.intro-screen.fade-out {
+    opacity: 0;
+    visibility: hidden; /* Ẩn hoàn toàn sau khi mờ dần */
+}
+
+/* Style cho thông điệp trên intro */
+#introMessage {
+    font-size: 1.5em;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Container của thanh tiến trình */
+.progress-bar-container {
+    width: 60%; /* Chiều rộng của thanh */
+    max-width: 500px; /* Giới hạn chiều rộng tối đa */
+    height: 20px; /* Chiều cao của thanh */
+    background-color: rgba(255, 255, 255, 0.2); /* Màu nền của thanh rỗng */
+    border-radius: 10px;
+    position: relative; /* Quan trọng để định vị trái tim và phần fill */
+    display: flex; /* Để căn giữa trái tim */
+    align-items: center; /* Để căn giữa trái tim theo chiều dọc */
+}
+
+/* Phần màu đầy của thanh tiến trình */
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Bắt đầu từ 0% */
+    background-color: #ff4d4d; /* Màu đỏ của trái tim */
+    border-radius: 10px;
+    /* Transition cho độ rộng để mượt mà hơn khi JS cập nhật */
+    transition: width 0.05s linear; 
+}
+
+/* Style cho trái tim trên intro */
+.intro-heart {
+    position: absolute;
+    width: 40px; /* Kích thước của trái tim khi di chuyển */
+    height: 40px;
+    background-color: #ff4d4d; /* Màu đỏ của trái tim */
+    /* Dùng translate để căn giữa trái tim theo điểm giữa của nó */
+    transform: translate(-50%, -50%) rotate(-45deg); 
+    top: 50%; /* Căn giữa theo chiều dọc của thanh */
+    left: 0; /* Vị trí bắt đầu (sẽ được JS cập nhật) */
+    cursor: pointer; /* Thay đổi con trỏ chuột thành ngón tay */
+    z-index: 2; /* Đảm bảo trái tim nằm trên thanh fill */
+    animation: pulse 1.5s infinite alternate; /* Hiệu ứng nhịp đập ban đầu */
+    /* Transition cho vị trí left để di chuyển mượt mà */
+    transition: left 0.05s linear, transform 0.5s ease; 
+}
+
+/* Tạo hình trái tim bằng pseudo-elements */
+.intro-heart::before,
+.intro-heart::after {
+    content: '';
+    position: absolute;
+    width: 40px; /* Kích thước của hai phần tròn */
+    height: 40px;
+    background-color: #ff4d4d; /* Cùng màu với phần chính */
+    border-radius: 50%; /* Tạo hình tròn */
+}
+
+.intro-heart::before {
+    top: -20px; /* Đặt phần tròn lên trên */
+    left: 0;
+}
+
+.intro-heart::after {
+    left: 20px; /* Đặt phần tròn sang phải */
+    top: 0;
+}
+
+/* Hiệu ứng nhịp đập cho trái tim */
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+    100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1.1); } /* Phóng to nhẹ */
+}
+
+/* Class để thay đổi style trái tim khi nó bắt đầu di chuyển */
+.intro-heart.moving {
+    animation: none; /* Dừng hiệu ứng nhịp đập */
+    /* Quay trái tim thẳng lại để di chuyển mượt mà trên thanh ngang */
+    transform: translate(-50%, -50%) rotate(0deg); 
+}
+
+
+/* Style cho container chính của trang sinh nhật */
+.birthday-container {
+    text-align: center;
+    background-color: transparent; /* Nền trong suốt */
+    padding: 40px 60px;
+    border-radius: 15px;
+    
+    position: relative;
+    z-index: 1;
+}
+
+/* Các style cho các phần tử chữ trong trang chính */
+h1 {
+    color: #ff6347; /* Màu đỏ cam */
+    font-size: 3em;
+    margin-bottom: 20px;
+    animation: bounceIn 1.5s ease-out; /* Hiệu ứng nảy vào */
+}
+
+p {
+    color: #007bff; /* Màu chữ xám đen */
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Nút/Thông báo phát nhạc */
+.play-music-prompt {
+    margin-top: 25px;
+    font-size: 1em;
+    color: #007bff; /* Màu xanh nổi bật */
+    cursor: pointer; /* Biến con trỏ thành ngón tay */
+    text-decoration: underline; /* Gạch chân để dễ nhận biết */
+    transition: color 0.3s ease;
+}
+
+.play-music-prompt:hover {
+    color: #0056b3; /* Đổi màu khi di chuột qua */
+}
+
+.hidden {
+    display: none; /* Class để ẩn các phần tử */
+}
+
+/* Hiệu ứng bong bóng (CSS) */
+.bubble {
+    position: absolute;
+    border-radius: 50%; /* Tạo hình tròn */
+    animation: bubbleUp 15s infinite ease-in; /* Hiệu ứng bay lên lặp lại */
+    /* opacity: 0.7; <--- Đã bỏ dòng này để màu rgba() trong JS kiểm soát độ trong suốt */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ cho bong bóng */
+}
+
+/* Hiệu ứng bướm (CSS) */
+.butterfly {
+    position: absolute;
+    width: 60px; /* Kích thước mặc định của con bướm */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    opacity: 0.8; /* Độ trong suốt của bướm */
+    animation: fly 20s infinite linear; /* Hiệu ứng bay liên tục */
+    z-index: 5; /* Đảm bảo bướm bay trên các yếu tố khác */
+    pointer-events: none; /* Bướm sẽ không cản trở click chuột */
+}
+
+/* Định nghĩa các hiệu ứng @keyframes */
+@keyframes fadeIn { /* Có thể không còn dùng trực tiếp trên .birthday-container */
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes bubbleUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; } /* Bắt đầu từ dưới, kích thước nhỏ */
+    5% { opacity: 0.8; transform: translateY(95vh) scale(0.5); } /* Xuất hiện và lớn dần, tăng opacity */
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } /* Bay lên trên cùng và mờ dần */
+}
+
+@keyframes fly {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    25% { transform: translate(calc(25vw + 50px), calc(-25vh - 50px)) rotate(30deg); } /* Bay lên trên, lệch phải */
+    50% { transform: translate(calc(50vw - 100px), calc(-50vh + 50px)) rotate(-10deg); } /* Bay ngang, đổi hướng */
+    75% { transform: translate(calc(75vw + 20px), calc(-25vh - 20px)) rotate(45deg); } /* Bay lên trên, lệch phải hơn */
+    100% { transform: translate(100vw, -100vh) rotate(0deg); opacity: 0; } /* Bay ra khỏi màn hình lên trên */
+}
+
+@keyframes fly2 {
+    0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+    10% { opacity: 0.8; }
+    40% { transform: translate(calc(30vw + 30px), calc(-40vh + 80px)) scale(1); }
+    70% { transform: translate(calc(60vw - 50px), calc(-70vh - 30px)) scale(0.9); }
+    100% { transform: translate(100vw, -100vh) scale(0.8); opacity: 0; }
+}
