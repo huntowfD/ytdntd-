@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Chờ hiệu ứng mờ dần kết thúc (thời gian này khớp với transition trong CSS)
         introScreen.addEventListener('transitionend', () => {
-            window.location.href = 'mainpage.html'; // Chuyển hướng sang trang chính
+            window.location.href = 'main-page.html'; // Chuyển hướng sang trang chính
         }, { once: true }); // Đảm bảo listener chỉ chạy một lần
     }
 
